@@ -1,0 +1,14 @@
+.flash-messages
+  - flash.each do |key, value|
+    %div{class: "alert alert-dismissible alert-#{flash_alert_converter key}", role: 'alert'}
+      %button.close{ 'data-dismiss': 'alert' } &times
+      - case key
+      - when 'success'
+        %i.glyphicon.glyphicon-ok-sign
+      - when 'danger'
+        %i.glyphicon.glyphicon-remove-sign
+      - when 'warning'
+        %i.glyphicon.glyphicon-exclamation-sign
+      - else
+        %i.glyphicon.glyphicon-info-sign
+      = value

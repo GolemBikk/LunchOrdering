@@ -1,0 +1,29 @@
+.form-horizontal {
+  .control-label {
+    text-align: left;
+  }
+}
+.form-group {
+  margin-bottom: 20px;
+}
+.help-block {
+  margin: 0;
+  position: absolute;
+}
+.form-control {
+  border-radius: 0;
+}
+.btn {
+  border-radius: 0;
+}
+.checkbox {
+  label {
+    input {
+      margin-top: 0;
+    }
+  }
+}
+.my-panel {
+  margin-top: 7%;
+  margin-bottom: 7%;
+}
