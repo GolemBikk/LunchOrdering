@@ -6,7 +6,7 @@
                                   wrapper: :horizontal_form) do |f|
     %fieldset
       %legend Sign up
-      - error_message! f.error_notification
+      - error_alert f.error_notification
       = f.input :name, autofocus: true, required: true,
                        label: 'User name', placeholder: 'Austin Powers'
       = f.input :email, required: true, label: 'Email', placeholder: 'Email'

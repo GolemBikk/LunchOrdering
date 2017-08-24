@@ -1,7 +1,7 @@
 module ApplicationHelper
-  def error_message!(error)
+  def error_alert(error)
     unless error.nil?
-      flash.now[:danger] = 'Please review the problems below'
+      flash.now[:danger] = 'Please review the problems below.'
     end
   end
 
@@ -10,6 +10,8 @@ module ApplicationHelper
     when 'error'
       'danger'
     when 'notice'
+      'info'
+    when 'alert'
       'info'
     else
       flash_key
