@@ -1,7 +1,7 @@
 class Users::RegistrationsController < Devise::RegistrationsController
-  before_action :configure_sign_up_params, only: [:create]
-  before_action :configure_account_update_params, only: [:update]
-
+  before_action :configure_sign_up_params, only: :create
+  before_action :configure_account_update_params, only: :update
+  before_action :can_update_account, only: :update
   # GET /resource/sign_up
   # def new
   #   super
@@ -37,6 +37,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   protected
+    def can_update_account
+      if current_user.is_admin?
+        flash[:info] = 'Sorry. Admin cannot be removed'
+        redirect_to root_path
+      end
+    end
 
     # If you have extra params to permit, append them to the sanitizer.
     def configure_sign_up_params

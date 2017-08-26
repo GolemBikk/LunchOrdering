@@ -1,0 +1,42 @@
+= provide :title, 'Edit profile'
+
+.col-lg-3
+.col-lg-6.my-panel
+  = simple_form_for(resource, as: resource_name,
+                                  url: registration_path(resource_name),
+                                  html: { method: :put, class: 'form-horizontal' },
+                                  wrapper: :horizontal_form) do |f|
+    %fieldset
+      %legend Edit #{resource.name}'s profile
+
+      - error_alert f.error_notification
+
+      = f.input :name, autofocus: true, required: true,
+                       label: 'User name', placeholder: 'Austin Powers'
+
+      = f.input :email, required: true, label: 'Email', placeholder: 'Email'
+      - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+        %p Currently waiting confirmation for: #{resource.unconfirmed_email}
+
+      = f.input :password, required: false, label: 'Password',
+                           placeholder: 'Password',
+                           hint: "leave it blank if you don't want to change it"
+
+      = f.input :password_confirmation, required: false,
+                                        placeholder: 'Confirm new password'
+
+      = f.input :current_password, required: true, label: 'Current password',
+                                   hint: 'we need your current password to confirm your changes'
+      .form-group
+        .col-lg-10.col-lg-offset-3.actions
+          = link_to 'Cancel', :back, class: 'btn btn-default'
+          = f.button :submit, 'Update', id: 'update_submit'
+
+      - unless current_user.is_admin?
+        %legend Cancel my account
+        .form-group
+          %label.col-lg-4.control-label Unhappy?
+          = link_to 'Cancel my account', registration_path(resource_name),
+                                         class: 'btn btn-default',
+                                         method: :delete
+.col-lg-3

@@ -1,3 +1,5 @@
+= provide :title, 'Log in'
+
 .col-lg-3
 .col-lg-6.my-panel
   = simple_form_for(resource, as: resource_name,
@@ -8,11 +10,14 @@
       %legend Log in
       = f.input :email, autofocus: true, required: true,
                         label: 'Email', placeholder: 'Email'
+
       = f.input :password, required: true, label: 'Password',
                            placeholder: 'Password'
+
       - if devise_mapping.rememberable?
         = f.input :remember_me, as: :boolean, label: 'Remember me',
                                 wrapper: :horizontal_boolean
+
       .form-group
         .col-lg-9.col-lg-offset-3
           %a{ href: root_path }

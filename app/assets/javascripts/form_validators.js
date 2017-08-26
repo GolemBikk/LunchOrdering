@@ -1,6 +1,7 @@
 function include_validators() {
     sign_in_validators();
     sign_up_validators();
+    update_profile_validators();
 }
 
 function sign_in_validators() {
@@ -10,34 +11,21 @@ function sign_in_validators() {
     $("#user_password").focusout(function () {
         check_field($(this), [valid_password]);
     });
-    // $("#sign_in_submit").click(function () {
-    //     email = check_field($("#user_email"), [blank_field, valid_email]);
-    //     password = check_field($("#user_password"), [blank_field, valid_password]);
-    //     return email && password;
-    // });
 }
 
 function sign_up_validators() {
-    $("#user_email").focusout(function () {
-        check_field($(this), [valid_email]);
-    });
-    $("#user_password").focusout(function () {
-        check_field($(this), [valid_password]);
-    });
     $("#user_name").focusout(function () {
         check_field($(this), [valid_name]);
     });
     $("#user_password_confirmation").focusout(function () {
         check_field($(this), [valid_password_confirmation]);
     });
-    // $("#sign_up_submit").click(function () {
-    //     name = check_field($("#user_name"), [blank_field, valid_name]);
-    //     email = check_field($("#user_email"), [blank_field, valid_email]);
-    //     password = check_field($("#user_password"), [blank_field, valid_password]);
-    //     password_confirmation = check_field($("#user_password_confirmation"),
-    //                                         [blank_field, valid_password_confirmation]);
-    //     return name && email && password && password_confirmation;
-    // });
+}
+
+function update_profile_validators() {
+    $("#user_current_password").focusout(function () {
+        check_field($(this), [valid_password]);
+    });
 }
 
 
@@ -68,13 +56,6 @@ function valid_password_confirmation(val) {
     var confirmed_val = $("#user_password").val();
     if (val != confirmed_val)
         return 'invalid password confirmation';
-    else
-        return '';
-}
-
-function blank_field(val) {
-    if (val.length === 0)
-        return "can't be blank";
     else
         return '';
 }

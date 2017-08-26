@@ -1,3 +1,5 @@
+= provide :title, 'Sign up'
+
 .col-lg-3
 .col-lg-6.my-panel
   = simple_form_for(resource, as: resource_name,
@@ -7,17 +9,22 @@
     %fieldset
       %legend Sign up
       - error_alert f.error_notification
+
       = f.input :name, autofocus: true, required: true,
                        label: 'User name', placeholder: 'Austin Powers'
+
       = f.input :email, required: true, label: 'Email', placeholder: 'Email'
+
       = f.input :password, required: true, label: 'Password',
-                           placeholder: 'Password'
+                           placeholder: 'Password',
+                           hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length)
+
       = f.input :password_confirmation, required: true,
                                         placeholder: 'Confirm your password'
+
       .form-group
         .col-lg-10.col-lg-offset-3.actions
-          %a{ href: root_path }
-            %button.btn.btn-default{type: 'reset'} Cancel
+          = link_to 'Cancel', :back, class: 'btn btn-default'
           %button.btn.btn-default{type: 'reset'} Clear
           = f.button :submit, 'Sign up', id: 'sign_up_submit'
 .col-lg-3
