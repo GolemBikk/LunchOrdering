@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170822103242) do
+ActiveRecord::Schema.define(version: 20170827143643) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "courses", force: :cascade do |t|
+    t.string   "title",       default: "", null: false
+    t.string   "course_type", default: "", null: false
+    t.integer  "price",       default: 0,  null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.index ["title"], name: "index_courses_on_title", using: :btree
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "name",                   default: "",    null: false
@@ -33,6 +42,14 @@ ActiveRecord::Schema.define(version: 20170822103242) do
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["name"], name: "index_users_on_name", using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  end
+
+  create_table "weekday_menus", force: :cascade do |t|
+    t.string   "weekday",    default: "", null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "course_id"
+    t.index ["course_id"], name: "index_weekday_menus_on_course_id", using: :btree
   end
 
 end
