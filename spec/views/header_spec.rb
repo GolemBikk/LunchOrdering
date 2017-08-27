@@ -7,7 +7,7 @@ RSpec.describe 'Header', type: :feature do
     before { visit root_path }
 
     it { should have_link('Lunch Ordering', href: root_path) }
-    it { should have_link('Home', href: root_path) }
+    it { should have_link('Home', href: home_path) }
 
     describe ' as unauthorized user' do
       it { should have_link('Log in', href: new_user_session_path) }

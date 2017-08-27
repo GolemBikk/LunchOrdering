@@ -1,3 +1,10 @@
 = provide :title, 'Home'
-.jumbotron
-  %h1 Welcome to my Ruby app!
+
+.col-lg-6.col-lg-offset-3.vertical-margin
+  .jumbotron
+    %h3 Please, choose weekday to see menu
+    %ul.list-group
+      - @weekdays.each do |w|
+        %li.list-group-item
+          = w.titleize
+          = link_to 'Show menu', '#', class: 'badge btn btn-primary'
