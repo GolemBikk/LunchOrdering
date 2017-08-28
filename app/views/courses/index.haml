@@ -1,0 +1,15 @@
+= provide :title, 'Menu'
+
+.col-lg-8.col-lg-offset-2
+  .jumbotron
+    %legend
+      %h3 Please, choose courses
+    %h4 First courses
+    %ul.list-group
+      = render partial: 'course', collection: @first_courses, as: :course
+    %h4 Main courses
+    %ul.list-group
+      = render partial: 'course', collection: @main_courses, as: :course
+    %h4 Beverages
+    %ul.list-group
+      = render partial: 'course', collection: @beverages, as: :course

@@ -1,7 +1,10 @@
 class Course < ApplicationRecord
-  default_scope -> { order('hotels.created_at DESC') }
+  default_scope -> { order(price: :asc) }
+  scope :menu, -> (weekday) { joins(:weekday_menus)
+                              .select('courses.*, weekday_menus.weekday as weekday')
+                              .where('weekday = ?', weekday) }
 
-  has_many :weekday_menus
+  has_many :weekday_menus, dependent: :destroy
 
   validates :title, presence: true, length: { maximum: 50 }
   validates :course_type, presence: true,

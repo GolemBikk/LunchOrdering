@@ -17,7 +17,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   def first_record?
-    User.all.size == 0
+    User.count.zero?
   end
 
   private

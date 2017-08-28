@@ -7,5 +7,6 @@ Rails.application.routes.draw do
 
   root to: 'static_pages#home'
 
-  get '/home' => 'static_pages#home', as: 'home'
+  get '/home', to: 'static_pages#home', as: 'home'
+  get '/menu/:weekday', to: 'courses#index', as: 'menu'
 end

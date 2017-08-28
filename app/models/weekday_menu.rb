@@ -1,6 +1,4 @@
 class WeekdayMenu < ApplicationRecord
-  scope :menu, -> (weekday) { includes(:course).where(weekday: weekday) }
-
   belongs_to :course
 
   validates :weekday, presence: true,
