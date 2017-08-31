@@ -20,8 +20,7 @@
 
       .form-group
         .col-lg-9.col-lg-offset-3
-          %a{ href: root_path }
-            %button.btn.btn-default{type: 'reset'} Cancel
+          = link_to 'Cancel', home_path, class: 'btn btn-default'
           = f.button :submit, 'Log in', id: 'sign_in_submit'
       %legend
       .form-group

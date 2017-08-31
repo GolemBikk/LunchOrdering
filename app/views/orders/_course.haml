@@ -1,7 +1,9 @@
-%li.list-group-item
+%li.list-group-item.flex
   = image_tag 'default.png', size: '100x100', class: 'list-inline'
   .list-item-body
     %h4.list-group-item-heading
       = course.title
     %p.list-group-item-text
       = "Price: #{course.price}$"
+    - if for_form
+      = radio_button('order', "#{course_type}_id", course.id)

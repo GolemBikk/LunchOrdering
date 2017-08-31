@@ -1,0 +1,44 @@
+= provide :title, 'Menu'
+
+.col-lg-8.col-lg-offset-2
+  .jumbotron
+    .right
+      = link_to 'Back', home_path, class: 'btn btn-default'
+    - if available_for_order? @order.order_date
+      = simple_form_for @order do |f|
+        = f.input :user_id, as: :hidden
+        = f.input :order_date, as: :date, label: false,
+                               input_html: { style: 'display: none' }
+        %legend
+          %h3 Please, choose first and main courses and drink
+        %h4 First courses
+        %ul.list-group
+          = render partial: 'orders/course', collection: @courses.first_courses,
+                                             locals: { for_form: true, course_type: 'first_course' }
+        %h4 Main courses
+        %ul.list-group
+          = render partial: 'orders/course', collection: @courses.main_courses,
+                                             locals: { for_form: true, course_type: 'main_course' }
+        %h4 Beverages
+        %ul.list-group
+          = render partial: 'orders/course', collection: @courses.beverages,
+                                             locals: { for_form: true, course_type: 'drink' }
+        .form-group
+          .col-lg-9
+            = link_to 'Cancel', home_path, class: 'btn btn-default'
+            = f.button :submit, 'Order', id: 'order_submit'
+    - else
+      %legend
+        %h3 Menu for weekday
+      %h4 First courses
+      %ul.list-group
+        = render partial: 'orders/course', collection: @courses.first_courses,
+                                           locals: { for_form: false }
+      %h4 Main courses
+      %ul.list-group
+        = render partial: 'orders/course', collection: @courses.main_courses,
+                                           locals: { for_form: false }
+      %h4 Beverages
+      %ul.list-group
+        = render partial: 'orders/course', collection: @courses.beverages,
+                                           locals: { for_form: false }

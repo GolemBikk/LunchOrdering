@@ -11,4 +11,8 @@ module Utilities
     return base_title if page_title.empty?
     "Lunch Ordering | #{page_title}"
   end
+
+  def to_weekday(date)
+    date.strftime('%A').downcase
+  end
 end

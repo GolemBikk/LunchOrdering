@@ -2,6 +2,8 @@ class User < ApplicationRecord
   VALID_NAME_REGEX = /\A[\w]+ [\w]+\z/i
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+[a-z\d]\.[a-z]+\z/i
 
+  has_many :orders, dependent: :destroy
+
   validates :name, presence: true,
             format: { with: VALID_NAME_REGEX }
 
@@ -9,7 +11,7 @@ class User < ApplicationRecord
             format: { with: VALID_EMAIL_REGEX },
             uniqueness: { case_sensitive: false }
 
-  before_save :admin_rule, if: :first_record?
+  before_create :admin_rule, if: :first_record?
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable

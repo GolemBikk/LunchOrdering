@@ -23,4 +23,8 @@ module ApplicationHelper
       flash_key
     end
   end
+
+  def available_for_order? (day)
+    day >= Date.today
+  end
 end

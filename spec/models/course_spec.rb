@@ -10,6 +10,7 @@ RSpec.describe Course, type: :model do
   it { should respond_to(:course_type) }
   it { should respond_to(:price) }
   it { should respond_to(:weekday_menus) }
+  it { should respond_to(:orders) }
   it { should be_valid }
 
   describe ' when title is not present' do

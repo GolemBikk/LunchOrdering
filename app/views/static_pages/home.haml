@@ -7,4 +7,4 @@
       - @weekdays.each do |w|
         %li.list-group-item
           = w.titleize
-          = link_to 'Show menu', menu_path(w), class: 'badge btn btn-primary'
+          = link_to 'Show menu', menu_path(weekday: w), class: 'badge btn btn-primary'

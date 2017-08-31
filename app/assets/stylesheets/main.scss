@@ -2,7 +2,16 @@
   margin-top: 7%;
   margin-bottom: 7%;
 }
+.flex {
+  display: flex;
+}
 .list-item-body {
   display: inline-block;
   margin-left: 10px;
+}
+.right {
+  float: right;
+}
+.alert {
+  z-index: 1000;
 }

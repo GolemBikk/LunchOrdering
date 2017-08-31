@@ -62,4 +62,12 @@ RSpec.describe ApplicationHelper, type: :helper do
       end
     end
   end
+
+  describe ' when check date' do
+    it ' should equal' do
+      expect(available_for_order? Date.today).to be_truthy
+      expect(available_for_order? Date.today.tomorrow).to be_truthy
+      expect(available_for_order? Date.today.yesterday).not_to be_truthy
+    end
+  end
 end

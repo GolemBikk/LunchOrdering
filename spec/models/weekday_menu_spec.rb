@@ -35,7 +35,7 @@ RSpec.describe WeekdayMenu, type: :model do
 
   describe ' when weekday is valid' do
     it ' should be valid' do
-      weekdays = %w[monday tuesday wednesday thursday friday]
+      weekdays = WeekdayMenu.weekdays
       weekdays.each do |valid_weekday|
         @weekday_menu.weekday = valid_weekday
         expect(@weekday_menu).to be_valid
