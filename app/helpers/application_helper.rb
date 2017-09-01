@@ -24,7 +24,7 @@ module ApplicationHelper
     end
   end
 
-  def available_for_order? (day)
+  def available_for_order?(day)
     day >= Date.today
   end
 end

@@ -11,7 +11,7 @@ module Admin
 
     def authenticate_admin
       unless current_user.is_admin?
-        flash[:warning] = 'Yoy have not admin roots'
+        flash[:warning] = 'You have not admin roots'
         redirect_to home_path
       end
     end
