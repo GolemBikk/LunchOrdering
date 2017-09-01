@@ -38,6 +38,7 @@ gem 'jbuilder', '~> 2.5'
 
 gem 'rubocop', require: false
 gem 'simple_form'
+gem 'administrate'
 
 # For registration
 gem 'devise'
