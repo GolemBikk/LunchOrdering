@@ -1,11 +1,11 @@
-- content_for(:title) { "#{t('administrate.actions.show')} #{page.page_title}" }
+- content_for(:title) { 'Show course' }
 
 %header.main-content__header{ role: 'banner' }
   %h1.main-content__page-title
     = "#{content_for(:title)}"
 
   %div
-    = link_to("#{t("administrate.actions.edit")} #{page.page_title}",
+    = link_to('Edit course',
       [:edit, namespace, page.resource],
       class: 'button') if valid_action? :edit
 
@@ -13,8 +13,8 @@
   %dl
     - page.attributes.each do |attribute|
       %dt.attribute-label{ id: attribute.name }
-      = t("helpers.label.#{resource_name}.#{attribute.name}",
-        default: attribute.name.titleize)
+        = t("helpers.label.#{resource_name}.#{attribute.name}",
+          default: attribute.name.titleize)
 
       %dd{ class: "attribute-data attribute-data--#{attribute.html_class}" }
         = render_field attribute

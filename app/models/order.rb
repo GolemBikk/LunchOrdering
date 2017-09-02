@@ -14,6 +14,16 @@ class Order < ApplicationRecord
            :correct_main_course,
            :correct_drink
 
+  def self.total_price(orders)
+    total_price = 0
+    orders.each do |order|
+        total_price += order.first_course.price
+        total_price += order.main_course.price
+        total_price += order.drink.price
+    end
+    total_price
+  end
+
   def self.count_by_dates(date_range)
     Order.group(:order_date).where(order_date: date_range).count
   end
@@ -21,8 +31,8 @@ class Order < ApplicationRecord
   protected
     def correct_order_date
       unless order_date.nil?
-        if order_date < Date.today
-          errors.add(:order_date, "can't be in the past")
+        if order_date != Date.today
+          errors.add(:order_date, "can't be in the past or future")
         end
       end
     end

@@ -59,7 +59,4 @@ class OrderDashboard < Administrate::BaseDashboard
   # Overwrite this method to customize how orders are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(order)
-  #   "Order ##{order.id}"
-  # end
 end

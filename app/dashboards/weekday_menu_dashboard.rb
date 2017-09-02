@@ -48,7 +48,7 @@ class WeekdayMenuDashboard < Administrate::BaseDashboard
   # Overwrite this method to customize how weekday menus are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(weekday_menu)
-  #   "WeekdayMenu ##{weekday_menu.id}"
-  # end
+  def display_resource(weekday_menu)
+    weekday_menu.weekday
+  end
 end
