@@ -14,6 +14,10 @@
         - collection_presenter.attributes_for(resource).each do |attribute|
           %td{ class: "cell-data cell-data--#{attribute.html_class}" }
             = render_field attribute
+        %td
+          = link_to(t('administrate.actions.show'),
+                      admin_course_path(resource),
+                      class: 'action-edit')
         - if valid_action? :edit, collection_presenter.resource_name
           %td
             = link_to(t('administrate.actions.edit'),

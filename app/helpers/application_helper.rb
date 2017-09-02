@@ -25,6 +25,10 @@ module ApplicationHelper
   end
 
   def available_for_order?(day)
-    day >= Date.today
+    day == Date.today
+  end
+
+  def to_datetime(date)
+    DateTime.new(date.year,date.month,date.day,0,0,0).to_time
   end
 end

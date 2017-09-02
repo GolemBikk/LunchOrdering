@@ -14,8 +14,8 @@ class Order < ApplicationRecord
            :correct_main_course,
            :correct_drink
 
-  def total_price
-    first_course.price + main_course.price + drink.price
+  def self.count_by_dates(date_range)
+    Order.group(:order_date).where(order_date: date_range).count
   end
 
   protected
