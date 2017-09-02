@@ -1,15 +1,5 @@
 module Admin
   class CoursesController < Admin::ApplicationController
-    # To customize the behavior of this controller,
-    # you can overwrite any of the RESTful actions. For example:
-    #
-    # def index
-    #   super
-    #   @resources = Course.
-    #     page(params[:page]).
-    #     per(10)
-    # end
-
     def new
       @resource = Course.new
       render locals: {
@@ -19,12 +9,15 @@ module Admin
 
     def create
       @resource = Course.new(permited_params)
-
+      unless WeekdayMenu.weekdays.include? Date.today.strftime('%A').downcase
+        redirect_to admin_courses_path, notice: 'Courses can be added only for weekdays.'
+        return
+      end
       if @resource.save
-        @resource.weekday_menus.create(weekday: Date.today.strftime('%A').downcase)
+        add_to_menu
         redirect_to(
             [namespace, @resource],
-            notice: translate_with_resource("create.success"),
+            notice: translate_with_resource('create.success'),
         )
       else
         render :new, locals: {
@@ -33,17 +26,26 @@ module Admin
       end
     end
 
-    # Define a custom finder by overriding the `find_resource` method:
-    # def find_resource(param)
-    #   Course.find_by!(slug: param)
-    # end
-
-    # See https://administrate-prototype.herokuapp.com/customizing_controller_actions
-    # for more information
+    def update
+      if requested_resource.update(permited_params)
+        redirect_to(
+            [namespace, requested_resource],
+            notice: translate_with_resource('update.success'),
+        )
+      else
+        render :edit, locals: {
+            page: Administrate::Page::Form.new(dashboard, requested_resource),
+        }
+      end
+    end
 
     protected
       def permited_params
-        params.require(:course).permit(:title, :course_type, :price)
+        params.require(:course).permit(:title, :course_type, :price, :photo)
+      end
+
+      def add_to_menu
+        @resource.weekday_menus.create!(weekday: Date.today.strftime('%A').downcase)
       end
   end
 end

@@ -6,8 +6,8 @@
           = attr_name.to_s.titleize
       - [valid_action?(:edit, collection_presenter.resource_name),
         valid_action?(:destroy, collection_presenter.resource_name)].count(true).times do
-        %th{ scope:'col' }
-
+        %th{ scope: 'col' }
+        %th{ scope: 'col' }
   %tbody
     - resources.each do |resource|
       %tr.js-table-row{ tabindex: 0 }
@@ -16,6 +16,6 @@
             = render_field attribute
         - if valid_action? :edit, collection_presenter.resource_name
           %td
-            = link_to(t("administrate.actions.edit"),
+            = link_to(t('administrate.actions.edit'),
                       [:edit, namespace, resource],
-                      class: "action-edit")
+                      class: 'action-edit')

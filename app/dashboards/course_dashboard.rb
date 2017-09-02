@@ -17,6 +17,7 @@ class CourseDashboard < Administrate::BaseDashboard
     price: Field::Number,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
+    photo: Field::String,
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -28,12 +29,14 @@ class CourseDashboard < Administrate::BaseDashboard
     :weekday_menus,
     :id,
     :title,
+    :price,
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = [
     :weekday_menus,
+    :photo,
     :id,
     :title,
     :course_type,

@@ -9,10 +9,20 @@
         - page.resource.errors.full_messages.each do |message|
           %li.flash-error
             = message
-
+  - if page.resource.photo?
+    = image_tag(page.resource.photo_url, id: 'image_show')
+  - else
+    %img#image_show
   - page.attributes.each do |attribute|
     %div{ class: "field-unit field-unit--#{attribute.html_class}"}
       = render_field attribute, f: f
+  .field-unit.field-unit--photo
+    .field-unit__label
+      = f.label :photo
+    .field-unit__field
+      = f.file_field :photo, id: 'image_load'
+
+  = f.hidden_field :photo_cache
 
   .form-actions
     = f.submit

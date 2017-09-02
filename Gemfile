@@ -39,6 +39,8 @@ gem 'jbuilder', '~> 2.5'
 gem 'rubocop', require: false
 gem 'simple_form'
 gem 'administrate'
+gem 'carrierwave', '~> 1.0'
+gem 'mini_magick'
 
 # For registration
 gem 'devise'

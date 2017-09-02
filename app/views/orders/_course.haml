@@ -1,5 +1,5 @@
 %li.list-group-item.flex
-  = image_tag 'default.png', size: '100x100', class: 'list-inline'
+  = image_tag(course.photo_small_url, size: '100x100', id:'image_show', class: 'list-inline')
   .list-item-body
     %h4.list-group-item-heading
       = course.title
