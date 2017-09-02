@@ -1,4 +1,6 @@
 class Order < ApplicationRecord
+  scope :with_courses, -> { includes(:first_course, :main_course, :drink) }
+
   belongs_to :user
   belongs_to :first_course, class_name: 'Course'
   belongs_to :main_course, class_name: 'Course'
