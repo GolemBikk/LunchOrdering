@@ -1,4 +1,16 @@
 Rails.application.routes.draw do
+  devise_for :users, controllers: {
+      registrations: 'users/registrations',
+      sessions:      'users/sessions'
+  }
+
+  root to: 'static_pages#home'
+
+  get '/home',          to: 'static_pages#home', as: 'home'
+  get '/menu/:weekday', to: 'orders#new',        as: 'menu'
+
+  resources :orders, only: [:new, :create]
+
   namespace :admin do
     root to: 'users#index'
 
@@ -9,15 +21,12 @@ Rails.application.routes.draw do
     resources :orders,  only: [:index]
   end
 
-  devise_for :users, controllers: {
-      registrations: 'users/registrations',
-      sessions:      'users/sessions'
-  }
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-
-  root to: 'static_pages#home'
-
-  get '/home',          to: 'static_pages#home', as: 'home'
-  get '/menu/:weekday', to: 'orders#new',        as: 'menu'
-  resources :orders, only: [:new, :create]
+  namespace :api do
+    namespace :v1 do
+      devise_for :users, controllers: {
+          registrations: 'api/v1/registrations',
+          sessions: 'api/v1/sessions'
+      }
+    end
+  end
 end

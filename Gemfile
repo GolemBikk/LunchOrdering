@@ -42,6 +42,7 @@ gem 'simple_calendar', '~> 2.0'
 gem 'administrate'
 gem 'carrierwave', '~> 1.0'
 gem 'mini_magick'
+gem 'active_model_serializers', '~> 0.10.0'
 
 # For registration
 gem 'devise'

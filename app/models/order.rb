@@ -43,7 +43,7 @@ class Order < ApplicationRecord
           errors.add(:first_course, "can't be a type other then 'first'")
         end
         unless order_date.nil?
-          unless include_weekday? first_course, order_weekday
+          unless include_weekday? first_course
             errors.add(:first_course, 'invalid course weekday')
           end
         end
@@ -56,7 +56,7 @@ class Order < ApplicationRecord
           errors.add(:main_course, "can't be a type other then 'main'")
         end
         unless order_date.nil?
-          unless include_weekday? main_course, order_weekday
+          unless include_weekday? main_course
             errors.add(:main_course, 'invalid course weekday')
           end
         end
@@ -69,7 +69,7 @@ class Order < ApplicationRecord
           errors.add(:drink, "can't be a type other then 'drink'")
         end
         unless order_date.nil?
-          unless include_weekday? drink, order_weekday
+          unless include_weekday? drink
             errors.add(:drink_course, 'invalid course weekday')
           end
         end
@@ -80,7 +80,7 @@ class Order < ApplicationRecord
       order_date.strftime('%A').downcase
     end
 
-    def include_weekday? ( course, order_weekday )
+    def include_weekday?(course)
       course.weekday_menus.pluck(:weekday).include? order_weekday
     end
 end
