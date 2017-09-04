@@ -134,6 +134,6 @@ RSpec.describe Order, type: :model do
   end
 
   it 'should have correct total price' do
-    expect(@order.total_price).to eq(@first_course.price + @main_course.price + @drink.price)
+    expect(Order.total_price([@order])).to eq(@first_course.price + @main_course.price + @drink.price)
   end
 end

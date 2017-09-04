@@ -1,27 +1,28 @@
 module Admin
   class CoursesController < Admin::ApplicationController
     def new
-      @resource = Course.new
+      resource = Course.new
+
       render locals: {
-          page: Administrate::Page::Form.new(dashboard, @resource),
+          page: Administrate::Page::Form.new(dashboard, resource),
       }
     end
 
     def create
-      @resource = Course.new(permited_params)
-      unless WeekdayMenu.weekdays.include? Date.today.strftime('%A').downcase
+      resource = Course.new(permited_params)
+
+      if !WeekdayMenu::WEEKDAYS.include?(to_weekday(Date.today))
         redirect_to admin_courses_path, notice: 'Courses can be added only for weekdays.'
-        return
-      end
-      if @resource.save
-        add_to_menu
+      elsif resource.save
+        add_to_menu(resource)
+
         redirect_to(
-            [namespace, @resource],
+            [namespace, resource],
             notice: translate_with_resource('create.success'),
         )
       else
         render :new, locals: {
-            page: Administrate::Page::Form.new(dashboard, @resource),
+            page: Administrate::Page::Form.new(dashboard, resource),
         }
       end
     end
@@ -44,8 +45,12 @@ module Admin
         params.require(:course).permit(:title, :course_type, :price, :photo)
       end
 
-      def add_to_menu
-        @resource.weekday_menus.create!(weekday: Date.today.strftime('%A').downcase)
+      def add_to_menu(course)
+        course.weekday_menus.create!(weekday: to_weekday(Date.today))
+      end
+
+      def to_weekday(date)
+        date.strftime('%A').downcase
       end
   end
 end

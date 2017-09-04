@@ -17,13 +17,11 @@ class Order < ApplicationRecord
            :correct_drink
 
   def self.total_price(orders)
-    total_price = 0
-    orders.each do |order|
-        total_price += order.first_course.price
-        total_price += order.main_course.price
-        total_price += order.drink.price
+    orders.inject(0) do |total_price, order|
+      total_price + order.first_course.price +
+                    order.main_course.price +
+                    order.drink.price
     end
-    total_price
   end
 
   def self.count_by_dates(date_range)
@@ -33,7 +31,7 @@ class Order < ApplicationRecord
   protected
     def correct_order_date
       unless order_date.nil?
-        if order_date != Date.today
+        unless order_date == Date.today
           errors.add(:order_date, "can't be in the past or future")
         end
       end
@@ -41,11 +39,11 @@ class Order < ApplicationRecord
 
     def correct_first_course
       unless first_course.nil?
-        if first_course.course_type != 'first'
+        unless first_course.course_type == 'first'
           errors.add(:first_course, "can't be a type other then 'first'")
         end
         unless order_date.nil?
-          unless include_weekday? first_course
+          unless include_weekday?(first_course)
             errors.add(:first_course, 'invalid course weekday')
           end
         end
@@ -54,11 +52,11 @@ class Order < ApplicationRecord
 
     def correct_main_course
       unless main_course.nil?
-        if main_course.course_type != 'main'
+        unless main_course.course_type == 'main'
           errors.add(:main_course, "can't be a type other then 'main'")
         end
         unless order_date.nil?
-          unless include_weekday? main_course
+          unless include_weekday?(main_course)
             errors.add(:main_course, 'invalid course weekday')
           end
         end
@@ -67,11 +65,11 @@ class Order < ApplicationRecord
 
     def correct_drink
       unless drink.nil?
-        if drink.course_type != 'drink'
+        unless drink.course_type == 'drink'
           errors.add(:drink, "can't be a type other then 'drink'")
         end
         unless order_date.nil?
-          unless include_weekday? drink
+          unless include_weekday?(drink)
             errors.add(:drink_course, 'invalid course weekday')
           end
         end
@@ -83,6 +81,6 @@ class Order < ApplicationRecord
     end
 
     def include_weekday?(course)
-      course.weekday_menus.pluck(:weekday).include? order_weekday
+      course.weekday_menus.pluck(:weekday).include?(order_weekday)
     end
 end

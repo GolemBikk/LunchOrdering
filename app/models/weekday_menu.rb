@@ -6,8 +6,4 @@ class WeekdayMenu < ApplicationRecord
   validates :weekday, presence: true,
             inclusion: { in: WEEKDAYS }
   validates :course_id, presence: true
-
-  def self.weekdays
-    WEEKDAYS
-  end
 end

@@ -12,9 +12,11 @@ class OrdersController < ApplicationController
 
     if @order.save
       flash[:info] = 'Your order is accepted.'
+
       redirect_to home_path
     else
       get_order_error
+
       redirect_to new_order_path(weekday: to_weekday(@order.order_date))
     end
   end
@@ -25,8 +27,9 @@ class OrdersController < ApplicationController
   end
 
   def check_weekday
-    unless WeekdayMenu.weekdays.include? params[:weekday]
+    unless WeekdayMenu::WEEKDAYS.include?(params[:weekday])
       flash[:danger] = 'Invalid weekday.'
+
       redirect_to home_path
     end
   end
