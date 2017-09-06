@@ -21,5 +21,6 @@
 
 # Ignore my filelist
 database.yml
+secrets.yml
 .idea
 .secret

@@ -47,6 +47,7 @@ gem 'active_model_serializers', '~> 0.10.0'
 
 # For registration
 gem 'devise'
+gem 'omniauth-google-oauth2'
 # Replace erb to haml
 gem 'haml'
 
