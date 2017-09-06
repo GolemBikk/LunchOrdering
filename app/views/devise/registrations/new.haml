@@ -27,4 +27,6 @@
           = link_to 'Cancel', :back, class: 'btn btn-default'
           %button.btn.btn-default{type: 'reset'} Clear
           = f.button :submit, 'Sign up', id: 'sign_up_submit'
+          = link_to 'Sign up with Google', user_google_oauth2_omniauth_authorize_path,
+                                           class: 'btn btn-primary right my-btn'
 .col-lg-3
