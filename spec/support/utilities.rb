@@ -12,7 +12,27 @@ module Utilities
     "Lunch Ordering | #{page_title}"
   end
 
+  def next_week_beginning
+    Date.today.beginning_of_week + 7
+  end
+
+  def weekdays
+    %w[monday tuesday wednesday thursday friday]
+  end
+
   def to_weekday(date)
     date.strftime('%A').downcase
+  end
+
+  def to_date(weekday)
+    date = Date.today.beginning_of_week
+    until to_weekday(date) == weekday do
+      date = date.tomorrow
+    end
+    date
+  end
+
+  def json
+    JSON.parse(response.body)
   end
 end

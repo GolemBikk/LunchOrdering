@@ -37,6 +37,7 @@ gem 'jbuilder', '~> 2.5'
 # gem 'capistrano-rails', group: :development
 
 gem 'rubocop', require: false
+gem 'pry'
 gem 'simple_form'
 gem 'simple_calendar', '~> 2.0'
 gem 'administrate'
@@ -68,6 +69,7 @@ end
 
 group :test do
   gem 'capybara'
+  gem 'rails-controller-testing'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

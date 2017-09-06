@@ -4,11 +4,11 @@ RSpec.describe Order, type: :model do
   before do
     @user = FactoryGirl.create(:user)
     @first_course = FactoryGirl.create(:course, course_type: 'first')
-    @first_course.weekday_menus.create(weekday: to_weekday(Date.today))
     @main_course = FactoryGirl.create(:course, course_type: 'main')
-    @main_course.weekday_menus.create(weekday: to_weekday(Date.today))
     @drink = FactoryGirl.create(:course, course_type: 'drink')
-    @drink.weekday_menus.create(weekday: to_weekday(Date.today))
+    Course.find_each do |course|
+      course.weekday_menus.create(weekday: to_weekday(Date.today))
+    end
     @order = @user.orders.build(order_date: Date.today,
                                 first_course_id: @first_course.id,
                                 main_course_id: @main_course.id,

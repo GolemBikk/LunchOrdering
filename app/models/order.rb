@@ -31,7 +31,7 @@ class Order < ApplicationRecord
   protected
     def correct_order_date
       unless order_date.nil?
-        unless order_date == Date.today
+        if order_date < Date.today
           errors.add(:order_date, "can't be in the past or future")
         end
       end

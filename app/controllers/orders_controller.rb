@@ -8,49 +8,51 @@ class OrdersController < ApplicationController
   end
 
   def create
-    @order = Order.new(permitted_params)
+    order = Order.new(permitted_params)
 
-    if @order.save
+    if order.save
       flash[:info] = 'Your order is accepted.'
 
       redirect_to home_path
     else
-      get_order_error
+      get_error(order)
+      weekday = to_weekday(order.order_date || Date.today)
 
-      redirect_to new_order_path(weekday: to_weekday(@order.order_date))
+      redirect_to new_order_path(weekday: weekday)
     end
   end
 
-  def permitted_params
-    params.require(:order).permit(:order_date,:first_course_id,
-                                  :main_course_id, :drink_id, :user_id)
-  end
-
-  def check_weekday
-    unless WeekdayMenu::WEEKDAYS.include?(params[:weekday])
-      flash[:danger] = 'Invalid weekday.'
-
-      redirect_to home_path
+  protected
+    def permitted_params
+      params.require(:order).permit(:order_date,:first_course_id,
+                                    :main_course_id, :drink_id, :user_id)
     end
-  end
 
-  def get_order_error
-    if @order.errors[:order_date].any?
-      flash[:danger] = @order.errors.details[:order_date]
-    else
-      flash[:danger] = 'Your should choose available courses from all group.'
+    def check_weekday
+      unless WeekdayMenu::WEEKDAYS.include?(params[:weekday])
+        flash[:danger] = 'Invalid weekday.'
+
+        redirect_to home_path
+      end
     end
-  end
 
-  def to_date (day_of_week)
-    date = Date.today.beginning_of_week
-    until to_weekday(date) == day_of_week do
-      date = date.tomorrow
+    def get_error(order)
+      if order.errors[:order_date].any?
+        flash[:danger] = order.errors.details[:order_date]
+      else
+        flash[:danger] = 'Your should choose available courses from all group.'
+      end
     end
-    date
-  end
 
-  def to_weekday(date)
-    date.strftime('%A').downcase
-  end
+    def to_date (day_of_week)
+      date = Date.today.beginning_of_week
+      until to_weekday(date) == day_of_week do
+        date = date.tomorrow
+      end
+      date
+    end
+
+    def to_weekday(date)
+      date.strftime('%A').downcase
+    end
 end

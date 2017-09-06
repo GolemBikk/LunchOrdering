@@ -1,5 +1,5 @@
 class ApiController < ActionController::API
-  before_action authenticate_by_token
+  before_action :authenticate_by_token
 
   protected
     def authenticate_by_token
